@@ -12,6 +12,15 @@
     
    <h3> please enter a valid url
    </h3>
+   @if ($errors->any())
+        <div style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ url('/api/shorten') }}" method="POST">
         @csrf
         <label for="url">Enter URL:</label>

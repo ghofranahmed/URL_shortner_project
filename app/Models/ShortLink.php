@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShortLink extends Model
 { protected $fillable = [
@@ -11,4 +12,9 @@ class ShortLink extends Model
         'visit_count'     
     ];
     //
+    public function visits()
+{
+    return $this->hasMany(LinkVisit::class);
+}
+
 }
