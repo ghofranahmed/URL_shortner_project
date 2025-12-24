@@ -18,9 +18,9 @@ class ShortLinkFactory extends Factory
     public function definition(): array
     {
         return [
-             'original_url' => $this->faker->url,
-        'short_code' => Str::random(6),
-        'visit_count' => 0,
+            'original_url' => $this->faker->url,
+            'short_code' => Str::random(6),
+            'visit_count' => 0,
         ];
     }
 }

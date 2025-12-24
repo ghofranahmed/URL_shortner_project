@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
-         Schema::create('link_visits', function (Blueprint $table) 
-         { $table->id();
-             $table->foreignId('short_link_id')->constrained('short_links')->onDelete('cascade');
-              $table->string('ip_address')->nullable();
-               $table->text('user_agent')->nullable();
-                $table->timestamps();
+
+        Schema::create('link_visits', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('short_link_id')->constrained('short_links')->onDelete('cascade');
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->timestamps();
         });
     }
 

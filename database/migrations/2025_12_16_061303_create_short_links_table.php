@@ -6,18 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   
     public function up(): void
     {
         Schema::create('short_links', function (Blueprint $table) {
-        $table->id();
-        $table->text('original_url');
-        $table->string('short_code', 8)->unique();
-        $table->unsignedInteger ('visit_count')->default(0);
-        $table->timestamps();
+            $table->id();
+            $table->text('original_url');
+            $table->string('short_code', 8)->unique();
+            $table->unsignedInteger('visit_count')->default(0);
+            $table->timestamps();
         });
     }
-
 
     public function down(): void
     {
