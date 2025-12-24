@@ -6,21 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+  
     public function up(): void
     {
-      Schema::table('short_links', function (Blueprint $table) { $table->index('short_code'); });
+      Schema::table('short_links', function (Blueprint $table) { 
+        $table->index('short_code');
+     });
 }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('short_links', function (Blueprint $table) {
-            //
-        });
-    }
+  
 };

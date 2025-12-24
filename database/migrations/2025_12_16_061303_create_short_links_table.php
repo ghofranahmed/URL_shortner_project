@@ -13,7 +13,7 @@ return new class extends Migration
         $table->id();
         $table->text('original_url');
         $table->string('short_code', 8)->unique();
-        $table->integer('visit_count')->default(0);
+        $table->unsignedInteger ('visit_count')->default(0);
         $table->timestamps();
         });
     }

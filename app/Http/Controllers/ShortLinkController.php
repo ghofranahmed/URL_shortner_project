@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Url_validate;
-use Pest\Support\Str;
+use App\Http\Requests\UrlValidate;
+use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 use App\Models\ShortLink;
 use App\Models\LinkVisit;
-//use Symfony\Component\HttpKernel\Attribute\Cache;
+
 use Illuminate\Support\Facades\Cache;
 
 class ShortLinkController extends Controller
 {
-     public function shorten(Url_validate $request)
+     public function shorten( UrlValidate $request)
 { 
     do { $shortCode = Str::random(8);
     } while (
@@ -31,12 +32,12 @@ class ShortLinkController extends Controller
 
 }
 public function redirect($shortCode) {
-    $chach_key = "shortLink:{$shortCode}";
-    $chace_url = Cache::get($chach_key);
+    $cacheKey = "shortLink:{$shortCode}";
+    $cachedUrl = Cache::get($cacheKey);
 
-    if ($chace_url) {
+    if ($cachedUrl) {
         ShortLink::where('short_code', $shortCode)->increment('visit_count');
-        return redirect($chace_url);
+        return redirect($cachedUrl);
     }
 
     $shortLink = ShortLink::where('short_code', $shortCode)->first();
@@ -45,7 +46,7 @@ public function redirect($shortCode) {
         return abort(404, 'Short link not found');
     }
 
-    Cache::put($chach_key, $shortLink->original_url, now()->addHours(6));
+    Cache::put($cacheKey, $shortLink->original_url, now()->addHours(6));
     $shortLink->increment('visit_count');
     LinkVisit::create([ 
         'short_link_id' => $shortLink->id,
