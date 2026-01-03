@@ -12,23 +12,21 @@ use Illuminate\Support\Str;
 class ShortLinkController extends Controller
 {
     public function shorten(UrlValidate $request)
-    {
-        do {
-            $shortCode = Str::random(8);
-        } while (
-            ShortLink::where('short_code',
-                $shortCode)->exists());
+{
+    do {
+        $shortCode = Str::random(8);
+    } while (ShortLink::where('short_code', $shortCode)->exists());
 
-        $shortLink = ShortLink::create([
-            'original_url' => $request->url, 'short_code' => $shortCode,
-        ]);
+    $shortLink = ShortLink::create([
+        'original_url' => $request->url,
+        'short_code' => $shortCode,
+    ]);
 
-        return response()->json([
-            'short_code' => $shortCode,
-            'short_url' => url("/r/$shortCode"),
-        ]);
+    $shortUrl = url("/r/$shortCode");
 
-    }
+    return view('shortened', compact('shortUrl', 'shortCode'));
+}
+
 
     public function redirect($shortCode)
     {
